@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineStore_Api.Services;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         builder.EnableRetryOnFailure(10, TimeSpan.FromSeconds(10), null);
     });
 });
+
+// Configure Serilog
+var logger = new LoggerConfiguration()
+// .ReadFrom.Configuration(builder.Configuration)
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File("logs/storeLogs.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Logging.AddSerilog(logger);
 
 var app = builder.Build();
 
