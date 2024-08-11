@@ -1,3 +1,5 @@
+using System.Reflection;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using OnlineStore_Api.Services;
 using Serilog;
@@ -20,7 +22,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     });
 });
 
-// Configure Serilog
+// Serilog
 var logger = new LoggerConfiguration()
 // .ReadFrom.Configuration(builder.Configuration)
     .MinimumLevel.Debug()
@@ -29,6 +31,10 @@ var logger = new LoggerConfiguration()
     .CreateLogger();
 
 builder.Logging.AddSerilog(logger);
+
+// Mapster
+// Tell Mapster to scan this assembly searching for the Mapster.IRegister classes and execute them
+TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
