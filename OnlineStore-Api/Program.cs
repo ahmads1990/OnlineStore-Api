@@ -1,7 +1,6 @@
 using System.Reflection;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
-using OnlineStore_Api.Services;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// DI
+builder.Services.AddScoped<IProductRepo, ProductRepo>();
 
 // Database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
