@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 // DI
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
+builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 
 // Database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
