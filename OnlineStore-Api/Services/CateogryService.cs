@@ -1,6 +1,4 @@
-﻿using OnlineStore_Api.Models;
-
-namespace OnlineStore_Api.Services;
+﻿namespace OnlineStore_Api.Services;
 
 public class CateogryService : ICateogryService
 {
@@ -32,21 +30,21 @@ public class CateogryService : ICateogryService
     public async Task<Category> AddNewCategoryAsync(Category category)
     {
         if (category == null || string.IsNullOrEmpty(category.Title) || string.IsNullOrEmpty(category.Description))
-            throw new Exception();
+            throw new ArgumentException("Invalid or Missing data");
 
         return await _categoryRepo.AddNewCategoryAsync(category);
     }
     public async Task<Category> UpdateCategoryAsync(Category category)
     {
         if (category == null || string.IsNullOrEmpty(category.Title) || string.IsNullOrEmpty(category.Description))
-            throw new Exception();
+            throw new ArgumentException("Invalid or Missing data");
 
         return await _categoryRepo.UpdateCategoryAsync(category);
     }
     public async Task<bool?> DeleteCategoryAsync(int categoryID)
     {
-        if (categoryID <= 0) 
-            return null;
+        if (categoryID <= 0)
+            throw new ArgumentException("Invalid ID must be (ID > 0)");
 
         return await _categoryRepo.DeleteCategoryAsync(categoryID);
     }
