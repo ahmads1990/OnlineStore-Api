@@ -2,8 +2,8 @@
 
 public class CateogryService : ICateogryService
 {
-    private readonly CategoryRepo _categoryRepo;
-    public CateogryService(CategoryRepo categoryRepo)
+    private readonly ICategoryRepo _categoryRepo;
+    public CateogryService(ICategoryRepo categoryRepo)
     {
         _categoryRepo = categoryRepo;
     }

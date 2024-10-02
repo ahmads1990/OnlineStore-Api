@@ -17,6 +17,7 @@ builder.Services.AddScoped<IProductRepo, ProductRepo>();
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 // Services
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICateogryService, CateogryService>();
 
 // Database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
