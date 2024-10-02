@@ -12,8 +12,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // DI
+// Repositories
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+// Services
+builder.Services.AddScoped<IProductService, ProductService>();
 
 // Database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
