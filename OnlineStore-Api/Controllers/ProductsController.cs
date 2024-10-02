@@ -18,4 +18,10 @@ public class ProductsController : ControllerBase
         var products = await _productService.GetAllProductsAsync(maxLimit);
         return Ok(products);
     }
+    [HttpGet("{productID}")]
+    public async Task<IActionResult> GetProductById(int productID)
+    {
+        var products = await _productService.GetFullProductByIDAsync(productID);
+        return Ok(products);
+    }
 }
