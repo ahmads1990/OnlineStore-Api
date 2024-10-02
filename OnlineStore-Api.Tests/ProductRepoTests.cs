@@ -1,8 +1,8 @@
 ﻿using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using OnlineStore_Api.Models;
-using OnlineStore_Api.Services;
-using OnlineStore_Api.Services.Interfaces;
+using OnlineStore_Api.Repositories;
+using OnlineStore_Api.Repositories.Interfaces;
 
 namespace OnlineStore_Api.Tests
 {
