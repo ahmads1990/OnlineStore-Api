@@ -1,7 +1,6 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace OnlineStore_Api.Services;
+namespace OnlineStore_Api.Repositories;
 
 public class CategoryRepo : ICategoryRepo
 {

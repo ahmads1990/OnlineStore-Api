@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace OnlineStore_Api.Services;
+namespace OnlineStore_Api.Repositories;
 
 public class AppDbContext : DbContext
 {

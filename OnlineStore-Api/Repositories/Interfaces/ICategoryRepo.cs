@@ -1,4 +1,4 @@
-﻿namespace OnlineStore_Api.Services.Interfaces;
+﻿namespace OnlineStore_Api.Repositories.Interfaces;
 
 public interface ICategoryRepo
 {

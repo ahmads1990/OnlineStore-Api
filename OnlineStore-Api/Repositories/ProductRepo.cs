@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OnlineStore_Api.Services.Interfaces;
+using OnlineStore_Api.Repositories.Interfaces;
 
-namespace OnlineStore_Api.Services;
+namespace OnlineStore_Api.Repositories;
 
 public class ProductRepo : IProductRepo
 {
