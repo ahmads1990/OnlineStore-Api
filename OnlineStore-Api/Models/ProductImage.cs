@@ -6,4 +6,6 @@ public class ProductImage
     public byte Order { get; set; }
     public string ImagePath { get; set; }
     public DateTime CreatedAt { get; set; }
+    public int ProductID { get; set; }
+    public Product Product { get; set; }
 }

@@ -1,6 +1,8 @@
 using System.Reflection;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using OnlineStore_Api.Helpers.Config;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,9 +17,17 @@ builder.Services.AddSwaggerGen();
 // Repositories
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
+builder.Services.AddScoped<IImageRepo, ImageRepo>();
+
 // Services
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICateogryService, CateogryService>();
+
+// Config
+builder.Services.Configure<LocalFileSettings>(builder.Configuration.GetSection("FileSettings"));
+
+if (builder.Environment.IsDevelopment())
+    builder.Services.AddScoped<IImageProcessor, ImageProcessLocal>();
 
 // Database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

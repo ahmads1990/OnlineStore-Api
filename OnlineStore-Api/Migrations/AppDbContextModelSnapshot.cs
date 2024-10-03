@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using OnlineStore_Api.Services;
+using OnlineStore_Api.Repositories;
 
 #nullable disable
 
@@ -37,7 +37,7 @@ namespace OnlineStore_Api.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("OnlineStore_Api.Models.Product", b =>
@@ -70,7 +70,7 @@ namespace OnlineStore_Api.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("OnlineStore_Api.Models.ProductImage", b =>
@@ -98,7 +98,7 @@ namespace OnlineStore_Api.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages");
+                    b.ToTable("ProductImages", (string)null);
                 });
 
             modelBuilder.Entity("OnlineStore_Api.Models.Product", b =>
