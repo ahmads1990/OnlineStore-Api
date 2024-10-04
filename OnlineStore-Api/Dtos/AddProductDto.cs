@@ -10,5 +10,5 @@ public class AddProductDto
 
     // Relations
     public AddCategoryDto CategoryDto { get; set; } = default!;
-    public IEnumerable<IFormFile> ProductImages { get; set; } = new List<IFormFile>();
+    public IEnumerable<AddProductImageDto> ProductImages { get; set; } = new List<AddProductImageDto>();
 }
