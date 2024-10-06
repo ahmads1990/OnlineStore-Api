@@ -22,10 +22,12 @@ builder.Services.AddScoped<IImageRepo, ImageRepo>();
 // Services
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICateogryService, CateogryService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
 // Config
 builder.Services.Configure<LocalFileSettings>(builder.Configuration.GetSection("FileSettings"));
 
+// Special injections
 if (builder.Environment.IsDevelopment())
     builder.Services.AddScoped<IImageProcessor, ImageProcessLocal>();
 

@@ -13,23 +13,25 @@ public class ImageRepo : IImageRepo
         _imageProcessor = imageProcessor;
     }
 
-    public async Task<string> SaveImage(IFormFile imageFile)
+    public async Task<ProductImage> SaveImage(IFormFile imageFile, byte order, int productID)
     {
         // Try to save image
+        var newProductImage = new ProductImage { ProductID = productID, CreatedAt = DateTime.Now, Order = order };
+        
         try
         {
             var imageRelativePath = await _imageProcessor.SaveImage(imageFile);
             if (string.IsNullOrEmpty(imageRelativePath)) {
             }
 
-            
+            newProductImage.ImagePath = imageRelativePath;
         }
         catch (Exception)
         {
 
             throw;
         }
-        return string.Empty;
+        return newProductImage;
     }
 }
 public class ImageProcessLocal : IImageProcessor
