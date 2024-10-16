@@ -1,4 +1,6 @@
-﻿namespace OnlineStore_Api.Services.Interfaces;
+﻿using OnlineStore_Api.Dtos;
+
+namespace OnlineStore_Api.Services.Interfaces;
 
 public interface IProductService
 {

@@ -1,4 +1,7 @@
 ﻿
+using Mapster;
+using OnlineStore_Api.Dtos;
+
 namespace OnlineStore_Api.Services;
 
 public class ProductService : IProductService
@@ -16,9 +19,10 @@ public class ProductService : IProductService
     {
         return await _productRepo.GetFullProductByIDAsync(productID);
     }
-    public Task<Product> AddNewProductAsync(Product product)
+    public async Task<Product> AddNewProductAsync(Product product)
     {
-        throw new NotImplementedException();
+        var createdProduct = await _productRepo.AddNewProductAsync(product);
+        return createdProduct;
     }
     public Task<Product> UpdateProductAsync(Product product)
     {

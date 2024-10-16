@@ -8,7 +8,7 @@ public class Product
     public string Details { get; set; } = string.Empty;
     public float Price { get; set; }
     // Relations
-    public byte CategoryId { get; set; }
+    public int CategoryId { get; set; }
     public Category Category { get; set; } = default!;
     public IEnumerable<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
 }

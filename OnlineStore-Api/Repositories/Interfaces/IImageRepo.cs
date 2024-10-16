@@ -2,7 +2,7 @@
 
 public interface IImageRepo
 {
-    public Task<ProductImage> SaveImage(IFormFile imageFile, byte order, int productID);
+    public Task<ProductImage?> SaveImage(IFormFile imageFile, byte order, int productID);
 }
 public interface IImageProcessor
 {

@@ -43,8 +43,8 @@ public class CateogryService : ICateogryService
     }
     public async Task<bool?> DeleteCategoryAsync(int categoryID)
     {
-        if (categoryID <= 0)
-            throw new ArgumentException("Invalid ID must be (ID > 0)");
+        //if (categoryID <= 0)
+        //    throw new ArgumentException("Invalid ID must be (ID > 0)");
 
         return await _categoryRepo.DeleteCategoryAsync(categoryID);
     }
