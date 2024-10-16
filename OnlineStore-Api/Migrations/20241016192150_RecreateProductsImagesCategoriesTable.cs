@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OnlineStore_Api.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateProductsImagesCategoriesTable : Migration
+    public partial class RecreateProductsImagesCategoriesTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,8 @@ namespace OnlineStore_Api.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    CategoryID = table.Column<byte>(type: "tinyint", nullable: false),
+                    CategoryID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -34,7 +35,7 @@ namespace OnlineStore_Api.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
-                    CategoryId = table.Column<byte>(type: "tinyint", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,22 +57,23 @@ namespace OnlineStore_Api.Migrations
                     Order = table.Column<byte>(type: "tinyint", nullable: false),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: true)
+                    ProductID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductImages", x => x.ProductImageID);
                     table.ForeignKey(
-                        name: "FK_ProductImages_Products_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_ProductImages_Products_ProductID",
+                        column: x => x.ProductID,
                         principalTable: "Products",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductImages_ProductId",
+                name: "IX_ProductImages_ProductID",
                 table: "ProductImages",
-                column: "ProductId");
+                column: "ProductID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",

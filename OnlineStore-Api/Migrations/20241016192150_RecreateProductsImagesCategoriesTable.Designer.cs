@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using OnlineStore_Api.Services;
+using OnlineStore_Api.Repositories;
 
 #nullable disable
 
 namespace OnlineStore_Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240813224202_CreateProductsImagesCategoriesTable")]
-    partial class CreateProductsImagesCategoriesTable
+    [Migration("20241016192150_RecreateProductsImagesCategoriesTable")]
+    partial class RecreateProductsImagesCategoriesTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,8 +27,11 @@ namespace OnlineStore_Api.Migrations
 
             modelBuilder.Entity("OnlineStore_Api.Models.Category", b =>
                 {
-                    b.Property<byte>("CategoryID")
-                        .HasColumnType("tinyint");
+                    b.Property<int>("CategoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryID"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -51,8 +54,8 @@ namespace OnlineStore_Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<byte>("CategoryId")
-                        .HasColumnType("tinyint");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -94,12 +97,12 @@ namespace OnlineStore_Api.Migrations
                     b.Property<byte>("Order")
                         .HasColumnType("tinyint");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("ProductID")
                         .HasColumnType("int");
 
                     b.HasKey("ProductImageID");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductID");
 
                     b.ToTable("ProductImages");
                 });
@@ -119,7 +122,9 @@ namespace OnlineStore_Api.Migrations
                 {
                     b.HasOne("OnlineStore_Api.Models.Product", null)
                         .WithMany("ProductImages")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("OnlineStore_Api.Models.Product", b =>
