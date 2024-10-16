@@ -31,7 +31,7 @@ public class ProductsController : ControllerBase
         return Ok(products);
     }
     [HttpPost]
-    public async Task<IActionResult> AddProduct(AddProductDto addProductDto)
+    public async Task<IActionResult> AddProduct([FromForm]AddProductDto addProductDto)
     {
         bool categoryExist = await _cateogryService.CheckCategoryExistAsync(addProductDto.CategoryId);
         if (!categoryExist)
