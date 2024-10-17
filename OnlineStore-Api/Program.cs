@@ -52,6 +52,19 @@ var logger = new LoggerConfiguration()
 
 builder.Logging.AddSerilog(logger);
 
+// CORS
+builder.Services.AddCors(options =>
+{
+    var allowedOrigins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>() ?? new[] { "" };
+
+    options.AddPolicy("AllowLocalhost", builder =>
+    {
+        builder.WithOrigins(allowedOrigins)
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Mapster
@@ -66,6 +79,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("AllowLocalhost");
 }
 
 app.UseHttpsRedirection();
