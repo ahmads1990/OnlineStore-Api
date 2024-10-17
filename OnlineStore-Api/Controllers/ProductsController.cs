@@ -29,8 +29,11 @@ public class ProductsController : ControllerBase
     [HttpGet("{productID}")]
     public async Task<IActionResult> GetProductById(int productID)
     {
-        var products = await _productService.GetFullProductByIDAsync(productID);
-        return Ok(products);
+        var product = await _productService.GetFullProductByIDAsync(productID);
+        if (product is null)
+            return NotFound();
+
+        return Ok(product.Adapt<ProductDto>());
     }
     [HttpPost]
     public async Task<IActionResult> AddProduct([FromForm]AddProductDto addProductDto)
