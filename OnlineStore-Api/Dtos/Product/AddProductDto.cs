@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineStore_Api.Dtos.Product.ProductImage;
 using System.ComponentModel.DataAnnotations;
 
-namespace OnlineStore_Api.Dtos;
+namespace OnlineStore_Api.Dtos.Product;
 
 public class AddProductDto
 {

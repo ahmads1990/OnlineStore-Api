@@ -1,4 +1,4 @@
-﻿using OnlineStore_Api.Dtos;
+﻿using OnlineStore_Api.Dtos.Product.ProductImage;
 
 namespace OnlineStore_Api.Services.Interfaces;
 
