@@ -2,6 +2,7 @@ using System.Reflection;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using OnlineStore_Api.Helpers.Config;
 using Serilog;
 
@@ -25,7 +26,7 @@ builder.Services.AddScoped<ICateogryService, CateogryService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 
 // Config
-builder.Services.Configure<LocalFileSettings>(builder.Configuration.GetSection("FileSettings"));
+builder.Services.Configure<FileStorage>(builder.Configuration.GetSection("FileStorage"));
 
 // Special injections
 if (builder.Environment.IsDevelopment())
@@ -51,11 +52,14 @@ var logger = new LoggerConfiguration()
 
 builder.Logging.AddSerilog(logger);
 
+var app = builder.Build();
+
 // Mapster
+var fileStorage = app.Services.GetRequiredService<IOptions<FileStorage>>().Value;
+// Register Mapster mappings
+MapsterConfig.RegisterMappings(fileStorage);
 // Tell Mapster to scan this assembly searching for the Mapster.IRegister classes and execute them
 TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());
-
-var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -65,7 +69,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();
