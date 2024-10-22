@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Mvc;
-using OnlineStore_Api.Dtos;
+using OnlineStore_Api.Dtos.Product;
+using System.Linq;
 
 namespace OnlineStore_Api.Controllers;
 
@@ -21,14 +22,18 @@ public class ProductsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllProducts(int? maxLimit)
     {
-        var products = await _productService.GetAllProductsAsync(maxLimit);
+        var products = (await _productService.GetAllProductsAsync(maxLimit))
+                             .Select(prod=>prod.Adapt<ProductDto>());
         return Ok(products);
     }
     [HttpGet("{productID}")]
     public async Task<IActionResult> GetProductById(int productID)
     {
-        var products = await _productService.GetFullProductByIDAsync(productID);
-        return Ok(products);
+        var product = await _productService.GetFullProductByIDAsync(productID);
+        if (product is null)
+            return NotFound();
+
+        return Ok(product.Adapt<ProductDto>());
     }
     [HttpPost]
     public async Task<IActionResult> AddProduct([FromForm]AddProductDto addProductDto)

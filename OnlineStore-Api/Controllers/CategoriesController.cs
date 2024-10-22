@@ -1,6 +1,6 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Mvc;
-using OnlineStore_Api.Dtos;
+using OnlineStore_Api.Dtos.Category;
 
 namespace OnlineStore_Api.Controllers;
 

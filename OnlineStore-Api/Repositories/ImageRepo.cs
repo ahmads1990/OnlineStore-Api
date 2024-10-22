@@ -44,16 +44,16 @@ public class ImageRepo : IImageRepo
 public class ImageProcessLocal : IImageProcessor
 {
     private readonly IWebHostEnvironment _webHostEnv;
-    private readonly LocalFileSettings _localFileSettings;
+    private readonly FileStorage _fileStorage;
 
-    public ImageProcessLocal(IWebHostEnvironment webHostEnv, IOptions<LocalFileSettings> localFileSettings)
+    public ImageProcessLocal(IWebHostEnvironment webHostEnv, IOptions<FileStorage> fileStorage)
     {
         _webHostEnv = webHostEnv;
-        _localFileSettings = localFileSettings.Value;
+        _fileStorage = fileStorage.Value;
     }
     public async Task<string> SaveImage(IFormFile imageFile)
     {
-        var imageSaveDir = Path.Combine(_webHostEnv.WebRootPath, _localFileSettings.ImageFileDir);
+        var imageSaveDir = Path.Combine(_webHostEnv.WebRootPath, _fileStorage.RelativeDirPaths.Images);
         var newImageFilename = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
 
         var filePath = Path.Combine(imageSaveDir, newImageFilename);

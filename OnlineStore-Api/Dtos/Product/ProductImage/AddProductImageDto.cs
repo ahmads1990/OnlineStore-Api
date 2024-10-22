@@ -1,4 +1,4 @@
-﻿namespace OnlineStore_Api.Dtos;
+﻿namespace OnlineStore_Api.Dtos.Product.ProductImage;
 
 public class AddProductImageDto
 {

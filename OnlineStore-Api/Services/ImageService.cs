@@ -1,4 +1,4 @@
-﻿using OnlineStore_Api.Dtos;
+﻿using OnlineStore_Api.Dtos.Product.ProductImage;
 using System.Linq;
 
 namespace OnlineStore_Api.Services;
