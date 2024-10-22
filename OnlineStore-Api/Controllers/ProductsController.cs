@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using OnlineStore_Api.Dtos.Product;
+using OnlineStore_Api.Helpers;
 using System.Linq;
 
 namespace OnlineStore_Api.Controllers;
@@ -24,6 +25,26 @@ public class ProductsController : ControllerBase
     {
         var products = (await _productService.GetAllProductsAsync(maxLimit))
                              .Select(prod=>prod.Adapt<ProductDto>());
+        return Ok(products);
+    }
+    [HttpGet]
+    public async Task<IActionResult> GetProductsWithQuery(
+        [FromQuery] int? categoryID,
+        [FromQuery] string? nameQuery,
+        [FromQuery] bool? includeImages,
+        [FromQuery] int? page,
+        [FromQuery] int? limit)
+    {
+        var searchFilter = new ProductSearchFilter
+        {
+            CategoryId = categoryID,
+            Name = nameQuery,
+            Page = page,
+            Limit = limit,
+            IncludeImages = includeImages
+        };
+        IEnumerable<Product>? products = await _productService.GetAllProductsAsync(searchFilter);
+        IEnumerable<ProductDto>? productsDtos = products.Select(prod => prod.Adapt<ProductDto>());
         return Ok(products);
     }
     [HttpGet("{productID}")]

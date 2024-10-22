@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineStore_Api.Repositories.Interfaces;
+using System.Linq.Expressions;
 
 namespace OnlineStore_Api.Repositories;
 
@@ -19,6 +20,21 @@ public class ProductRepo : IProductRepo
 
         if (maxLimit is not null && maxLimit > 0)
             query = query.Take(maxLimit.Value);
+
+        return await query.ToListAsync();
+    }
+    async Task<IEnumerable<Product>> GetAllProductsAsync
+    (Expression<Func<Product, bool>> filter, int limit, int page, bool IncludeImages)
+    {
+        var query = _context.Products
+                        .Include(p => p.Category)
+                        .AsQueryable();
+
+        if (IncludeImages)
+            query = query.Include(p => p.ProductImages);
+
+        query = query.Where(filter);
+        query = query.Skip(page * limit).Take(limit);
 
         return await query.ToListAsync();
     }
