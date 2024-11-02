@@ -23,7 +23,7 @@ public class ProductRepo : IProductRepo
 
         return await query.ToListAsync();
     }
-    async Task<IEnumerable<Product>> GetAllProductsAsync
+    public async Task<IEnumerable<Product>> GetAllProductsAsync
     (Expression<Func<Product, bool>> filter, int limit, int page, bool IncludeImages)
     {
         var query = _context.Products

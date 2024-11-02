@@ -20,18 +20,18 @@ public class ProductsController : ControllerBase
         _cateogryService = cateogryService;
         _imageService = imageService;
     }
-    [HttpGet]
-    public async Task<IActionResult> GetAllProducts(int? maxLimit)
-    {
-        var products = (await _productService.GetAllProductsAsync(maxLimit))
-                             .Select(prod=>prod.Adapt<ProductDto>());
-        return Ok(products);
-    }
+    //[HttpGet]
+    //public async Task<IActionResult> GetAllProducts(int? maxLimit)
+    //{
+    //    var products = (await _productService.GetAllProductsAsync(maxLimit))
+    //                         .Select(prod=>prod.Adapt<ProductDto>());
+    //    return Ok(products);
+    //}
     [HttpGet]
     public async Task<IActionResult> GetProductsWithQuery(
         [FromQuery] int? categoryID,
         [FromQuery] string? nameQuery,
-        [FromQuery] bool? includeImages,
+        [FromQuery] bool includeImages,
         [FromQuery] int? page,
         [FromQuery] int? limit)
     {
