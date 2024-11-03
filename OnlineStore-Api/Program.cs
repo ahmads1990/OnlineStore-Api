@@ -1,8 +1,12 @@
 using System.Reflection;
 using Mapster;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using OnlineStore_Api.Helpers;
 using OnlineStore_Api.Helpers.Config;
 using Serilog;
 
@@ -41,6 +45,44 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         builder.EnableRetryOnFailure(10, TimeSpan.FromSeconds(10), null);
     });
 });
+
+// Security
+// configure jwt helper class to use jwt config info
+builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("Jwt"));
+
+// add Identity with options configuration
+builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireLowercase = true;
+}).AddEntityFrameworkStores<AppDbContext>();
+
+// Add Authentication with jwt config
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(o =>
+{
+    o.RequireHttpsMetadata = false;
+    o.SaveToken = false;
+    o.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? "Random key")),
+    };
+});
+
+builder.Services.AddAuthorization();
 
 // Serilog
 var logger = new LoggerConfiguration()
