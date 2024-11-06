@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using OnlineStore_Api.Helpers;
 using OnlineStore_Api.Helpers.Config;
 using Serilog;
@@ -16,7 +17,32 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Scheme = "bearer",
+        Description = "Please insert JWT token into field"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] { }
+        }
+    });
+});
 
 // DI
 // Repositories
@@ -28,6 +54,8 @@ builder.Services.AddScoped<IImageRepo, ImageRepo>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICateogryService, CateogryService>();
 builder.Services.AddScoped<IImageService, ImageService>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Config
 builder.Services.Configure<FileStorage>(builder.Configuration.GetSection("FileStorage"));
@@ -126,6 +154,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
