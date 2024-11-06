@@ -23,13 +23,12 @@ public class ProductService : IProductService
     }
     public async Task<IEnumerable<Product>> GetAllProductsAsync(ProductSearchFilter searchFilter)
     {
-        Expression<Func<Product, bool>> filter = product=>
-            (!string.IsNullOrEmpty(searchFilter.Name) || product.Name.Contains(searchFilter.Name)) &&
+        Expression<Func<Product, bool>> filter = product =>
+            (string.IsNullOrEmpty(searchFilter.Name) || product.Name.Contains(searchFilter.Name)) &&
             (!searchFilter.CategoryId.HasValue || product.CategoryId == searchFilter.CategoryId);
 
-
         int maxLimit = Math.Max(searchFilter.Limit ?? 50, 1);
-        var page = Math.Min(searchFilter.Page ?? 0, 10) - 1;
+        var page = Math.Min(searchFilter.Page ?? 1, 10) - 1;
 
         return await _productRepo.GetAllProductsAsync(filter, maxLimit, page, searchFilter.IncludeImages);
     }
