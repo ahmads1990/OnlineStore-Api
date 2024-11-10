@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace OnlineStore_Api.Repositories;
+namespace OnlineStore_Api.Models;
 
 public class AppDbContext : IdentityDbContext<AppUser>
 {
