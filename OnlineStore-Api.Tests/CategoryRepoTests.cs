@@ -18,9 +18,9 @@ namespace OnlineStore_Api.Tests
         {
             return new List<Category>()
             {
-                new Category { CategoryID = 1, Title = "Category1", Description = "CategoryDesc1" },
-                new Category { CategoryID = 2, Title = "Category2", Description = "CategoryDesc2" },
-                new Category { CategoryID = 3, Title = "Category3", Description = "CategoryDesc3" }
+                new Category { ID = 1, Title = "Category1", Description = "CategoryDesc1" },
+                new Category { ID = 2, Title = "Category2", Description = "CategoryDesc2" },
+                new Category { ID = 3, Title = "Category3", Description = "CategoryDesc3" }
             };
         }
 
@@ -68,7 +68,7 @@ namespace OnlineStore_Api.Tests
             var result = await categoryRepo.GetCategoryWithIDAsync(testId);
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.CategoryID, Is.EqualTo(testId));
+            Assert.That(result.ID, Is.EqualTo(testId));
         }
 
         [Test]

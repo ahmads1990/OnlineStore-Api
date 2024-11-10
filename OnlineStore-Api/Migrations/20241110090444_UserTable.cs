@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OnlineStore_Api.Migrations
 {
     /// <inheritdoc />
-    public partial class AddUserTable : Migration
+    public partial class UserTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

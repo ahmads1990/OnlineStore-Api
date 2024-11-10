@@ -7,7 +7,7 @@ namespace OnlineStore_Api.Dtos.Product;
 public class ProductDto
 {
     [JsonPropertyName("Id")]
-    public int Id { get; set; }
+    public int ID { get; set; }
     [JsonPropertyName("Title")]
     public string Name { get; set; } = string.Empty;
     [JsonPropertyName("Description")]

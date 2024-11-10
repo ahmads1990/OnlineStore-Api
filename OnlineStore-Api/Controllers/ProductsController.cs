@@ -70,7 +70,7 @@ public class ProductsController : ControllerBase
         // Sae images
         foreach (var imageDto in addProductDto.ProductImageDtos)
         {
-            await _imageService.SaveImage(imageDto, createdProduct.Id);
+            await _imageService.SaveImage(imageDto, createdProduct.ID);
         }
 
         return Ok(createdProduct);

@@ -17,7 +17,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Category>()
-        .Property(c => c.CategoryID)
+        .Property(c => c.ID)
         .ValueGeneratedOnAdd();
     }
 }

@@ -2,8 +2,8 @@
 
 public class ProductImageDto
 {
-    public int ProductImageID { get; set; }
+    public int ID { get; set; }
     public byte Order { get; set; }
     public string ImagePath { get; set; } = string.Empty;
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedDate { get; set; }
 }

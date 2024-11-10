@@ -19,11 +19,11 @@ namespace OnlineStore_Api.Tests
         {
             return new List<Product>()
             {
-                new Product { Id = 1, Name = "Product1", Description = "Desc1", Price = 10.99f, CategoryId = 1 },
-                new Product { Id = 2, Name = "Product2", Description = "Desc2", Price = 20.99f, CategoryId = 1 },
-                new Product { Id = 3, Name = "Product3", Description = "Desc3", Price = 30.99f, CategoryId = 2 },
-                new Product { Id = 4, Name = "Product4", Description = "Desc4", Price = 40.99f, CategoryId = 2 },
-                new Product { Id = 5, Name = "Product5", Description = "Desc5", Price = 50.99f, CategoryId = 3 }
+                new Product { ID = 1, Name = "Product1", Description = "Desc1", Price = 10.99f, CategoryId = 1 },
+                new Product { ID = 2, Name = "Product2", Description = "Desc2", Price = 20.99f, CategoryId = 1 },
+                new Product { ID = 3, Name = "Product3", Description = "Desc3", Price = 30.99f, CategoryId = 2 },
+                new Product { ID = 4, Name = "Product4", Description = "Desc4", Price = 40.99f, CategoryId = 2 },
+                new Product { ID = 5, Name = "Product5", Description = "Desc5", Price = 50.99f, CategoryId = 3 }
             };
         }
 
@@ -31,9 +31,9 @@ namespace OnlineStore_Api.Tests
         {
             return new List<Category>()
             {
-                new Category { CategoryID = 1, Title = "Category1", Description = "CategoryDesc1" },
-                new Category { CategoryID = 2, Title = "Category2", Description = "CategoryDesc2" },
-                new Category { CategoryID = 3, Title = "Category3", Description = "CategoryDesc3" }
+                new Category { ID = 1, Title = "Category1", Description = "CategoryDesc1" },
+                new Category { ID = 2, Title = "Category2", Description = "CategoryDesc2" },
+                new Category { ID = 3, Title = "Category3", Description = "CategoryDesc3" }
             };
         }
 
@@ -109,9 +109,9 @@ namespace OnlineStore_Api.Tests
             var result = await productRepo.GetFullProductByIDAsync(testId);
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Id, Is.EqualTo(testId));
+            Assert.That(result.ID, Is.EqualTo(testId));
             Assert.That(result.Category, Is.Not.Null);
-            Assert.That(result.Category.CategoryID, Is.EqualTo(result.CategoryId));
+            Assert.That(result.Category.ID, Is.EqualTo(result.CategoryId));
         }
 
         [Test]
@@ -131,7 +131,7 @@ namespace OnlineStore_Api.Tests
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Name, Is.EqualTo(newProduct.Name));
-            Assert.That(result.Id, Is.GreaterThan(0));
+            Assert.That(result.ID, Is.GreaterThan(0));
         }
 
         [Test]

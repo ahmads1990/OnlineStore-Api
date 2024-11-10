@@ -43,7 +43,7 @@ public class ProductRepo : IProductRepo
         return await _context.Products
                         .Include(p => p.Category)
                         .Include(p => p.ProductImages)
-                        .FirstOrDefaultAsync(p => p.Id == productID);
+                        .FirstOrDefaultAsync(p => p.ID == productID);
     }
     public async Task<Product> AddNewProductAsync(Product product)
     {

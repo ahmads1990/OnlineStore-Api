@@ -27,7 +27,7 @@ public class ImageRepo : IImageRepo
             {
                 ProductID = productID,
                 ImagePath = imageRelativePath,
-                CreatedAt = DateTime.Now,
+                CreatedDate = DateTime.Now,
                 Order = order
             };
             await _context.ProductImages.AddAsync(newProductImage);

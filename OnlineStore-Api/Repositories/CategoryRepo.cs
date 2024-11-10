@@ -16,7 +16,7 @@ public class CategoryRepo : ICategoryRepo
     public async Task<Category?> GetCategoryWithIDAsync(int categoryID)
     {
         return await _context.Categories
-                        .FirstOrDefaultAsync(c => c.CategoryID == categoryID);
+                        .FirstOrDefaultAsync(c => c.ID == categoryID);
     }
     public async Task<Category?> GetCategoryWithNameAsync(string categoryTitle)
     {
@@ -26,7 +26,7 @@ public class CategoryRepo : ICategoryRepo
     public async Task<bool> CheckCategoryExistAsync(int categoryID)
     {
         return await _context.Categories
-                      .AnyAsync(c => c.CategoryID == categoryID);
+                      .AnyAsync(c => c.ID == categoryID);
     }
     public async Task<Category> AddNewCategoryAsync(Category category)
     {

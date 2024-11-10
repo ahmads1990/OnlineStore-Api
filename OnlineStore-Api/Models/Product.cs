@@ -1,8 +1,7 @@
 ﻿namespace OnlineStore_Api.Models;
 
-public class Product
+public class Product : BaseEntity
 {
-    public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public string Details { get; set; } = string.Empty;
