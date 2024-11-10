@@ -111,7 +111,13 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(PolicyNames.AdminOnly, policy =>
+    {
+        policy.RequireClaim(CustomClaimTypes.ISADMIN);
+    });
+});
 
 // Serilog
 var logger = new LoggerConfiguration()

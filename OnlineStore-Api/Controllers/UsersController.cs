@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using OnlineStore_Api.Helpers;
 
 namespace OnlineStore_Api.Controllers;
 
@@ -19,8 +21,21 @@ public class UsersController : ControllerBase
         return Ok(result);
 
     }
-    [HttpGet("{userId}")]
+
+    [HttpGet("no/{userId}")]
     public async Task<IActionResult> GetUserById(string userId)
+    {
+        var result = await _userService.GetUserById(userId);
+
+        if (result is null)
+            return NotFound();
+
+        return Ok(result);
+    }
+
+    [Authorize(PolicyNames.AdminOnly)]
+    [HttpGet("{userId}")]
+    public async Task<IActionResult> GetUserByIdAuth(string userId)
     {
         var result = await _userService.GetUserById(userId);
 
