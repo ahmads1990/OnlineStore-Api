@@ -56,6 +56,7 @@ builder.Services.AddScoped<ICateogryService, CateogryService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 // Config
 builder.Services.Configure<FileStorage>(builder.Configuration.GetSection("FileStorage"));
